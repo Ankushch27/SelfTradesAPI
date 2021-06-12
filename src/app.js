@@ -2,6 +2,8 @@ const express = require('express');
 
 require('./db/mysql');
 const authRoutes = require('./routes/authRoutes');
+const couponRoutes = require('./routes/couponRoutes');
+const dataRoutes = require('./routes/dataRoutes');
 const userRoutes = require('./routes/userRoutes');
 const AppError = require('./utils/AppError');
 const errorController = require('./middlewares/errorController');
@@ -11,6 +13,8 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(authRoutes);
+app.use(couponRoutes);
+app.use(dataRoutes);
 app.use(userRoutes);
 
 app.all('*', (req, res) => {

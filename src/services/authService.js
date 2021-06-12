@@ -21,7 +21,7 @@ const findUserByEmail = (email) => {
 const findUserById = (id) => {
   return new Promise((resolve, reject) => {
     db.query(
-      'SELECT email, expiry, id, mobile, module, name FROM users WHERE id = ?',
+      'SELECT email, id, mobile, module, name, timestamp FROM users WHERE id = ?',
       [id],
       (error, results) => {
         if (error) return reject(error);
