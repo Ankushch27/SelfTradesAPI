@@ -16,10 +16,10 @@ router.post(
   '/signup',
   userValidation.signupValidation,
   catchAsync(async (req, res) => {
-    const { email, mobile, module, name, password } = req.body;
+    const { created_at, email, expiry, mobile, module, name, password } = req.body;
 
     const hashedPassword = await encryptPassword(password);
-    const signupInfo = { email, mobile, module, name, password: hashedPassword };
+    const signupInfo = { created_at, email, expiry, mobile, module, name, password: hashedPassword };
     const result = await createUser(signupInfo);
     res.status(201).json({ result, error: null });
   })
