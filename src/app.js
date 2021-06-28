@@ -4,6 +4,7 @@ require('./db/mysql');
 const authRoutes = require('./routes/authRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const dataRoutes = require('./routes/dataRoutes');
+const razorpayRoutes = require('./routes/razorpayRoutes');
 const userRoutes = require('./routes/userRoutes');
 const AppError = require('./utils/AppError');
 const errorController = require('./middlewares/errorController');
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(authRoutes);
 app.use(couponRoutes);
 app.use(dataRoutes);
+app.use(razorpayRoutes);
 app.use(userRoutes);
 
 app.all('*', (req, res) => {
