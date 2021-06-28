@@ -11,8 +11,9 @@ const auth = catchAsync(async (req, res, next) => {
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const user = await findUserById(decoded.id);
 
-  if (!user) throw new AppError('User does not exist!', 404);
+  if (!user) throw new AppError('User does not exist!', 401);
 
+  delete user.password
   req.token = token;
   req.user = user;
   next();
