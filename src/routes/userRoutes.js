@@ -1,7 +1,8 @@
 const express = require('express');
 
 const auth = require('../middlewares/auth');
-const { getAllUsers } = require('../services/userService');
+const { findUserByMobile } = require('../services/authService');
+const { getAllUsers, updateUser } = require('../services/userService');
 const catchAsync = require('../utils/catchAsync');
 
 const router = express.Router();
@@ -18,6 +19,19 @@ router.get(
   '/allUsers',
   catchAsync(async (req, res) => {
     const result = await getAllUsers();
+    res.status(200).json({ result, error: null });
+  })
+);
+
+router.patch(
+  '/updateUser',
+  catchAsync(async (req, res) => {
+    const { amount, expiry, mobile, module } = req.body;
+
+    const user = await findUserByMobile(mobile);
+    if (!user) throw new AppError('User not found!', 422);
+    
+    const result = await updateUser(amount, expiry, mobile, module)
     res.status(200).json({ result, error: null });
   })
 );
