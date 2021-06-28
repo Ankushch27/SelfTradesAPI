@@ -6,7 +6,7 @@ const catchAsync = require('../utils/catchAsync');
 
 const router = express.Router();
 
-let dir = 'D:\\HTML-CSS\\Brad-web\\images\\logos';
+let dir = 'E:\\Documents\\BCA\\Project\\Project Sreenshots';
 
 router.get(
   '/singledata',
@@ -20,11 +20,14 @@ router.get(
   '/data',
   auth,
   catchAsync(async (req, res) => {
-    let images = []
+    let images = [];
     const files = await fs.readdir(dir);
     for (const file of files) {
-      const content = (await fs.readFile(`${dir}\\${file}`)).toString('base64')
-      images.push(content)
+      if (file.endsWith('.PNG')) {
+        const filename = file.split('.')[0];
+        const content = (await fs.readFile(`${dir}\\${file}`)).toString('base64');
+        images.push({ filename, content });
+      }
     }
     res.status(200).json({ result: { images }, errors: null });
   })
